@@ -1,0 +1,5 @@
+#!/bin/sh
+# SPDX-FileCopyrightText: © 2026 Obed Kooijman <contact@obedkooijman.me>
+# SPDX-License-Identifier: GPL-2.0-or-later
+
+exec reuse lint

@@ -1,0 +1,13 @@
+#!/bin/sh
+# SPDX-FileCopyrightText: © 2026 Obed Kooijman <contact@obedkooijman.me>
+# SPDX-License-Identifier: GPL-2.0-or-later
+
+set -eu
+
+case "$1" in
+  /*) message_file="$1" ;;
+  *) message_file="$PWD/$1" ;;
+esac
+
+exec npm --prefix .github/tools/commitlint run lint -- \
+  --edit "$message_file"

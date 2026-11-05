@@ -30,3 +30,5 @@ rustc-ice-*.txt
 # Added by cargo
 
 /target
+
+node_modules/
