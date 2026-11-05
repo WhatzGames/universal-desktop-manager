@@ -42,6 +42,8 @@ jobs:
           BEFORE: ${{ github.event.before }}
           AFTER: ${{ github.sha }}
         run: |
+          git fetch --no-tags origin "$BEFORE"
+          
           npm --prefix .github/tools/commitlint run lint -- \
             --from "$BEFORE" \
             --to "$AFTER"
