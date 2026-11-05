@@ -1,0 +1,21 @@
+# SPDX-FileCopyrightText: © 2026 Obed Kooijman <contact@obedkooijman.me>
+# SPDX-License-Identifier: GPL-2.0-or-later
+
+FROM docker.io/cachyos/cachyos:latest as runtime
+
+RUN sed -i '/^\[options\]$/a DisableSandboxNetwork' /etc/pacman.conf
+
+RUN pacman -Syu --needed --noconfirm hyprland
+
+ENV RUST_LOG=info
+CMD ["/usr/local/bin/udm"]
+
+
+FROM runtime AS development
+
+RUN pacman -Syu --needed --noconfirm base-devel rustup
+
+COPY rust-toolchain.toml /rust-toolchain.toml
+RUN rustc --version
+
+CMD ["/usr/bin/bash"]

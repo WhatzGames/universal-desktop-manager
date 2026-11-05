@@ -1,0 +1,25 @@
+# SPDX-FileCopyrightText: © 2026 Obed Kooijman <contact@obedkooijman.me>
+# SPDX-License-Identifier: GPL-2.0-or-later
+
+FROM docker.io/library/debian:forky-slim AS runtime
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends hyprland \
+    && rm -rf /var/lib/apt/lists/*
+
+ENV RUST_LOG=info
+CMD ["/usr/local/bin/udm"]
+
+FROM runtime as development
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        build-essential \
+        ca-certificates \
+        rustup \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY rust-toolchain.toml /rust-toolchain.toml
+RUN rustc --version
+
+CMD ["/bin/bash"]
