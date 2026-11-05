@@ -1,0 +1,11 @@
+{
+  "name": "udm-commitlint",
+  "private": true,
+  "license": "GPL-2.0-or-later",
+  "scripts": {
+    "lint": "commitlint --default-config"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "21.2.4"
+  }
+}

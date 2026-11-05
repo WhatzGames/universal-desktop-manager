@@ -1,0 +1,41 @@
+# SPDX-FileCopyrightText: © 2026 Obed Kooijman <contact@obedkooijman.me>
+# SPDX-License-Identifier: GPL-2.0-or-later
+
+name: Test container
+description: Run the prebuilt UDM executable in a target environment
+
+inputs:
+  context:
+    description: Directory containing the target Containerfile.
+    required: true
+  platform:
+    description: Container platform, such as linux/arm64.
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Build target environment
+      shell: bash
+      env:
+        TARGET_CONTEXT: ${{ inputs.context }}
+        TARGET_PLATFORM: ${{ inputs.platform }}
+      run: |
+        docker build \
+          --target runtime \
+          --platform "$TARGET_PLATFORM" \
+          --file "$TARGET_CONTEXT/Containerfile" \
+          --tag udm-test:ci \
+          "$TARGET_CONTEXT"
+    - name: Run UDM inside target
+      shell: bash
+      env:
+        TARGET_PLATFORM: ${{ inputs.platform }}
+        UDM_BINARY: ${{ github.workspace }}/artifacts/udm
+      run: |
+        chmod +x "$UDM_BINARY"
+
+        docker run --rm \
+          --platform "$TARGET_PLATFORM" \
+          --mount "type=bind,source=$UDM_BINARY,target=/usr/local/bin/udm,readonly" \
+          udm-test:ci
