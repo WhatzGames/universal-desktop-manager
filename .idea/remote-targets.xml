@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="RemoteTargetsManager">
+    <option name="projectDefaultTargetUuid" value="c31d0708-3ed1-4bcf-9954-8ffa7ece7af6" />
+    <targets>
+      <target name="docker.io/library/udm-debian-hyprland:development" type="docker" uuid="c31d0708-3ed1-4bcf-9954-8ffa7ece7af6">
+        <config>
+          <option name="targetPlatform">
+            <TargetPlatform />
+          </option>
+          <option name="buildImageConfig">
+            <BuildImageConfig>
+              <option name="buildCliOptions" value="--platform linux/arm64 --target development" />
+              <option name="builtImageTag" value="docker.io/library/udm-debian-hyprland:development" />
+              <option name="contextFolder" value="." />
+              <option name="dockerFile" value="tests/containers/debian/wayland/hyprland/Containerfile" />
+            </BuildImageConfig>
+          </option>
+          <option name="containerConfig">
+            <ContainerConfig>
+              <option name="runCliOptions" value="--platform linux/arm64" />
+            </ContainerConfig>
+          </option>
+        </config>
+        <ContributedStateBase type="RsLanguageRuntime">
+          <config>
+            <option name="cargoPath" value="/usr/bin/cargo" />
+            <option name="cargoVersion" value="1.99.1 (5f94df478 2026-08-27)" />
+            <option name="rustcPath" value="/usr/bin/rustc" />
+            <option name="rustcVersion" value="1.99.1 (58cf8f9c3 2026-10-13)" />
+          </config>
+        </ContributedStateBase>
+      </target>
+    </targets>
+  </component>
+</project>
